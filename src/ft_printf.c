@@ -1,5 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/20 00:18:04 by nmetais           #+#    #+#             */
+/*   Updated: 2024/11/20 01:46:58 by nmetais          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <stdio.h>
 #include "./../include/printf.h"
 
 t_printf	*init(t_printf *config)
@@ -17,7 +27,7 @@ t_printf	*countformatspecifiers(const char *format, t_printf *config)
 	i = 0;
 	while (format[i])
 	{
-		if (format[i] == '%')
+		if (format[i] == '%' && percentchecker(format + i + 1) == 1)
 			config->percent += 1;
 		i++;
 	}
@@ -34,7 +44,7 @@ t_printf	*countformatspecifiers(const char *format, t_printf *config)
 		return (NULL);
 	if (config->percent == 0)
 		return (NULL);
-	return(NULL);
+	return (config);
 }
 
 int	ft_printf(const char *format, ...)
@@ -50,11 +60,14 @@ int	ft_printf(const char *format, ...)
 	init(config);
 	va_start(config->arg, format);
 	countformatspecifiers(format, config);
+	printer(format, config);
+	va_end(config->arg);
 	return (0);
 }
 
 int main(void)
-{
-	ft_printf("c");
-	//printf("c");
+{ 
+	//ECRIRE LES NON PRINTABLE ENTRE 9 et 13
+	//ft_printf("c");
+	printf("%d");
 }
