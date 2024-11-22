@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 19:49:54 by nmetais           #+#    #+#             */
-/*   Updated: 2024/11/19 20:51:08 by nmetais          ###   ########.fr       */
+/*   Updated: 2024/11/21 21:50:55 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 		cdest[i] = csrc[i];
 		i++;
 	}
-	return (dest);
+	return (cdest);
 }
 /*
 int main(void)

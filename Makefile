@@ -1,4 +1,10 @@
 SRCS = 	src/ft_printf.c \
+		src/ft_bigputchar.c \
+		src/ft_charmanager.c \
+		src/ft_condition.c \
+		src/ft_hexadress.c \
+		src/ft_itoa_unsigned.c \
+
 
 OBJS = $(SRCS:.c=.o)
 
@@ -22,7 +28,6 @@ $(NAME): $(LIB) $(OBJS)
 $(LIB):
 	make --silent -C ./lib/libft
 
-compil: $(CC) $(CFLAGS) $(OBJS) -
 clean:
 	rm -rf *.o
 	rm -rf ./src/*.o

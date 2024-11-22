@@ -1,28 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   ft_bigputchar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/19 13:08:17 by nmetais           #+#    #+#             */
-/*   Updated: 2024/11/19 20:16:56 by nmetais          ###   ########.fr       */
+/*   Created: 2024/11/20 14:04:04 by nmetais           #+#    #+#             */
+/*   Updated: 2024/11/22 12:59:33 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#include "./../include/ft_printf.h"
 
-# include "./../lib/libft/include/libft.h"
-# include <stdarg.h>
-# include <stdio.h>
-
-typedef struct s_printf
+int	getsize(const char *format, t_printf *config)
 {
-	va_list	arg;
-	int		percent;
-	int		len;
-	int		sign;
-}	t_printf;
+	size_t	size;
 
-#endif
+	size = 0;
+	size = ft_strlen(format) - (2 * config->percent)
+		+ ft_strlen((char *)config->arg);
+	return (size + 1);
+}

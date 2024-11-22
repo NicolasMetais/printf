@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_itoa_unsigned.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/16 16:32:51 by nmetais           #+#    #+#             */
-/*   Updated: 2024/11/22 11:58:21 by nmetais          ###   ########.fr       */
+/*   Updated: 2024/11/22 12:59:46 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/libft.h"
+#include "./../include/ft_printf.h"
 
 static	int	getintsize(long cn)
 {
@@ -69,7 +69,7 @@ static	char	*convert(int long cn, char *str, size_t nega, size_t count)
 	return (str);
 }
 
-char	*ft_itoa(int n)
+char	*ft_itoa_unsigned(unsigned int n)
 {
 	size_t			count;
 	size_t			nega;
