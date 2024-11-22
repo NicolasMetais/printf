@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 00:16:48 by nmetais           #+#    #+#             */
-/*   Updated: 2024/11/22 12:59:39 by nmetais          ###   ########.fr       */
+/*   Updated: 2024/11/22 15:51:19 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,20 @@ char	*buildstr(const char *format, t_printf *config, char *toprint
 			toprint[j++] = format[i++];
 		l++;
 	}
+	if (conditionner(format, config, i) == 2)
+		free (config->converted);
 	return (toprint);
 }
 
 int	printer(const char *format, t_printf *config, size_t fullsize)
 {
-	char	*ret;
 	char	*toprint;
 
 	toprint = ft_calloc(fullsize + 1, sizeof(char));
-	ret = buildstr(format, config, toprint, fullsize);
-	fullsize = (write(1, ret, ft_strlen(ret)));
-	free(ret);
-	free(config->converted);
+	toprint = buildstr(format, config, toprint, fullsize);
+	//printf("%zu", ft_strlen(toprint));
+	fullsize = (write(1, toprint, ft_strlen(toprint)));
+	free(toprint);
 	return (fullsize);
 }
 

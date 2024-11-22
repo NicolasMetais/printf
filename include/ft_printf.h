@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf.h                                           :+:      :+:    :+:   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 13:08:17 by nmetais           #+#    #+#             */
-/*   Updated: 2024/11/22 12:29:33 by nmetais          ###   ########.fr       */
+/*   Updated: 2024/11/22 14:06:20 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PRINTF_H
-# define PRINTF_H
+#ifndef FT_PRINTF_H
+# define FT_PRINTF_H
 
 # include "./../lib/libft/include/libft.h"
 # include <stdarg.h>
@@ -23,10 +23,10 @@ typedef struct s_printf
 	va_list	arg;
 	int		percent;
 	int		len;
-	int		sign;
 	char	*converted;
 }	t_printf;
 
+int	ft_printf(const char *format, ...);
 int		printer(const char *format, t_printf *config, size_t fullsize);
 size_t	percentchecker(const char *format);
 size_t	multiplechar(t_printf *config);

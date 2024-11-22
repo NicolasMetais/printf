@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 00:18:04 by nmetais           #+#    #+#             */
-/*   Updated: 2024/11/22 12:59:48 by nmetais          ###   ########.fr       */
+/*   Updated: 2024/11/22 15:53:28 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ t_printf	*init(t_printf *config)
 {
 	config->percent = 0;
 	config->len = 0;
-	config->sign = 0;
 	return (config);
 }
 
@@ -45,6 +44,7 @@ size_t	getfullsize(const char *format, t_printf *config)
 {
 	size_t	i;
 	size_t	printsize;
+	char	*str;
 
 	i = 0;
 	printsize = ft_strlen(format);
@@ -52,7 +52,10 @@ size_t	getfullsize(const char *format, t_printf *config)
 	{
 		if (format[i] == '%' && percentchecker(format + i) == 1)
 		{
-			printsize += ft_strlen((char *)config->arg);
+			if (format[i] == '%' && format[i + 1] == 'c')
+				return (printsize = 1);
+			str = va_arg(config->arg, char *);
+			printsize += ft_strlen(str);
 			printsize -= 2;
 			va_arg(config->arg, int);
 			config->len += 1;
@@ -85,13 +88,13 @@ int	ft_printf(const char *format, ...)
 	free(config);
 	return (retsize);
 }
-/*
+
 int main(void)
 { 
 	//int test;
 	//int u = 787987;
 
-	ft_printf("%% test");
-	printf("\n%% test");
+	ft_printf("%d" , "test");
+	//printf("\n%% test");
 	//printf("%s%s%s", "t", "t", "t");
-}*/
+}
