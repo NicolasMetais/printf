@@ -1,9 +1,9 @@
 SRCS = 	src/ft_printf.c \
-		src/ft_bigputchar.c \
-		src/ft_charmanager.c \
+		src/ft_char_manager.c \
 		src/ft_condition.c \
-		src/ft_hexadress.c \
+		src/ft_hexa_manager.c \
 		src/ft_itoa_unsigned.c \
+		src/ft_int_manager.c \
 
 
 OBJS = $(SRCS:.c=.o)
@@ -34,7 +34,7 @@ clean:
 	make clean -C ./lib/libft
 
 c:
-	cc $(CFLAGS) ./src/ft_printf.c ./src/ft_itoa_unsigned.c ./src/ft_hexadress.c ./lib/libft/src/ft_itoa.c ./lib/libft/src/ft_putchar_fd.c ./lib/libft/src/ft_toupper.c ./lib/libft/src/ft_memmove.c ./src/ft_bigputchar.c ./src/ft_charmanager.c ./src/ft_condition.c ./lib/libft/src/ft_strlen.c ./lib/libft/src/ft_strnstr.c ./lib/libft/src/ft_calloc.c ./lib/libft/src/ft_memcpy.c ./lib/libft/src/ft_strncmp.c -g3
+	cc ./src/ft_printf.c ./src/ft_int_manager.c ./src/ft_itoa_unsigned.c ./src/ft_hexa_manager.c ./lib/libft/src/ft_itoa.c ./lib/libft/src/ft_putchar_fd.c ./lib/libft/src/ft_toupper.c ./lib/libft/src/ft_memmove.c ./src/ft_char_manager.c ./src/ft_condition.c ./lib/libft/src/ft_strlen.c ./lib/libft/src/ft_strnstr.c ./lib/libft/src/ft_calloc.c ./lib/libft/src/ft_memcpy.c ./lib/libft/src/ft_strncmp.c -g3
 
 fclean: clean 
 	rm -f $(NAME)

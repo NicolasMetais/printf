@@ -6,95 +6,72 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 00:18:04 by nmetais           #+#    #+#             */
-/*   Updated: 2024/11/22 15:53:28 by nmetais          ###   ########.fr       */
+/*   Updated: 2024/11/24 23:14:09 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../include/ft_printf.h"
 
-t_printf	*init(t_printf *config)
-{
-	config->percent = 0;
-	config->len = 0;
-	return (config);
-}
-
-t_printf	*countformatspecifiers(const char *format, t_printf *config)
+int	countformatspecifiers(const char *format)
 {
 	size_t	i;
+	size_t	percent;
+	size_t	argcount;
 
 	i = 0;
+	percent = 0;
+	argcount = 0;
 	while (format[i])
 	{
 		if (format[i] == '%' && percentchecker(format + i) == 1)
-			config->percent += 1;
+			percent += 1;
 		i++;
 	}
-	i = 0;
-	if (config->len != config->percent) // ------------------------------------------------------------------------
-		return (NULL);
-	if (config->len == 0 && config->percent == 0)// A DEPLACER A CHECKER + TARD
-		return (NULL);
-	if (config->percent == 0)
-		return (NULL); // ----------------------------------------------------------------------------------------
-	return (config);
-}
-
-size_t	getfullsize(const char *format, t_printf *config)
-{
-	size_t	i;
-	size_t	printsize;
-	char	*str;
-
-	i = 0;
-	printsize = ft_strlen(format);
-	while (format[i])
-	{
-		if (format[i] == '%' && percentchecker(format + i) == 1)
-		{
-			if (format[i] == '%' && format[i + 1] == 'c')
-				return (printsize = 1);
-			str = va_arg(config->arg, char *);
-			printsize += ft_strlen(str);
-			printsize -= 2;
-			va_arg(config->arg, int);
-			config->len += 1;
-		}
-		i++;
-	}
-	return (printsize);
+	if (percent == 0)
+		return (1);
+	return (0);
 }
 
 int	ft_printf(const char *format, ...)
 {
-	t_printf	*config;
-	size_t		fullsize;
-	size_t		retsize;
+	size_t	i;
+	size_t	size;
+	size_t	count;
+	va_list	arg;
 
-	config = ft_calloc(1, sizeof(*config));
-	if (!config)
+	i = 0;
+	size = 0;
+	count = 0;
+	va_start(arg, format);
+	if (countformatspecifiers(format) == 1)
+		return (write(1, "NULL", 1));
+	va_end(arg);
+	va_start(arg, format);
+	while (format[i])
 	{
-		free(config);
-		return (-42);
+		if (format[i] == '%')
+		{
+			size += conditionner(format, i, arg);
+			i++;
+		}
+		else
+		{
+			write(1, &format[i], 1);
+			count++;
+		}
+		i++;
 	}
-	init(config);
-	countformatspecifiers(format, config);
-	va_start(config->arg, format);
-	fullsize = getfullsize(format, config);
-	va_end(config->arg);
-	va_start(config->arg, format);
-	retsize = printer(format, config, fullsize);
-	va_end(config->arg);
-	free(config);
-	return (retsize);
+	va_end(arg);
+	return (count + size);
 }
-
+/*
 int main(void)
 { 
-	//int test;
-	//int u = 787987;
+	//char u[] = "test";
+	int test;
+	int test1;
 
-	ft_printf("%d" , "test");
-	//printf("\n%% test");
-	//printf("%s%s%s", "t", "t", "t");
-}
+	test = ft_printf(" %x ", -100);
+	test1 = printf(" %x ", -100);
+	printf("\nft_printf:%d\n printf: %d", test, test1);
+}*/

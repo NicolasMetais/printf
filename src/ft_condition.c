@@ -6,112 +6,56 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 00:16:48 by nmetais           #+#    #+#             */
-/*   Updated: 2024/11/22 15:51:19 by nmetais          ###   ########.fr       */
+/*   Updated: 2024/11/24 20:04:32 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./../include/ft_printf.h"
 
-size_t	conditionner(const char *format, t_printf *config, size_t i)
+size_t	conditionner(const char *format, size_t i, va_list arg)
 {
-	size_t	bol;
+	size_t	writtedsize;
 
-	bol = 0;
+	writtedsize = 0;
 	if (format[i] == '%' && format[i + 1] == 'c')
-		bol = singlechar(config);
+		writtedsize = singlechar(arg);
 	if (format[i] == '%' && format[i + 1] == 's')
-		bol = multiplechar(config);
+		writtedsize = multiplechar(arg);
 	if (format[i] == '%' && format[i + 1] == 'p')
-		bol = hexadress(config);
+		writtedsize = hexadress(arg);
 	if (format[i] == '%' && format[i + 1] == 'd')
-		bol = inttochar(config);
+		writtedsize = inttochar(arg);
 	if (format[i] == '%' && format[i + 1] == 'i')
-		bol = inttochar(config);
+		writtedsize = inttochar(arg);
 	if (format[i] == '%' && format[i + 1] == 'u')
-		bol = unsignedinttochar(config);
+		writtedsize = unsignedinttochar(arg);
 	if (format[i] == '%' && format[i + 1] == 'x')
-		bol = hexa(config, 0);
+		writtedsize = hexa(arg, 0);
 	if (format[i] == '%' && format[i + 1] == 'X')
-		bol = hexa(config, 1);
+		writtedsize = hexa(arg, 1);
 	if (format[i] == '%' && format[i + 1] == '%')
-		bol = percent(config);
-	return (bol);
-}
-
-char	*buildstr(const char *format, t_printf *config, char *toprint
-	, size_t fullsize)
-{
-	size_t	i;
-	size_t	j;
-	size_t	k;
-	size_t	l;
-
-	i = 0;
-	j = 0;
-	l = 0;
-	while (l <= fullsize)
-	{
-		if (conditionner(format, config, i) == 1)
-		{
-			k = 0;
-			while (config->converted[k])
-			{
-				toprint[j++] = config->converted[k];
-				k++;
-			}
-			i = i + 2;
-		}
-		else
-			toprint[j++] = format[i++];
-		l++;
-	}
-	if (conditionner(format, config, i) == 2)
-		free (config->converted);
-	return (toprint);
-}
-
-int	printer(const char *format, t_printf *config, size_t fullsize)
-{
-	char	*toprint;
-
-	toprint = ft_calloc(fullsize + 1, sizeof(char));
-	toprint = buildstr(format, config, toprint, fullsize);
-	//printf("%zu", ft_strlen(toprint));
-	fullsize = (write(1, toprint, ft_strlen(toprint)));
-	free(toprint);
-	return (fullsize);
-}
-
-char	*miniconcat(char check1)
-{
-	char	*concat;
-
-	concat = ft_calloc(3, sizeof(char));
-	concat[0] = '%';
-	concat[1] = check1;
-	concat[2] = '\0';
-	return (concat);
-
+		writtedsize = percent();
+	return (writtedsize);
 }
 
 size_t	percentchecker(const char *format)
 {
 	char	*check1;
-	char	*concat;
+	char	concat[3];
 	size_t	i;
 
 	check1 = "cspdiuxX%";
 	i = 0;
 	while (check1[i])
 	{
-		concat = miniconcat(check1[i]);
+		concat[0] = '%';
+		concat[1] = check1[i];
+		concat[2] = '\0';
 		if (ft_strnstr(format, concat, 2) != NULL )
-		{
-			free(concat);
 			return (1);
-		}
-		free(concat);
 		i++;
 	}
 	return (0);
 }
+
+
