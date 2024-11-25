@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 17:24:41 by nmetais           #+#    #+#             */
-/*   Updated: 2024/11/24 22:27:59 by nmetais          ###   ########.fr       */
+/*   Updated: 2024/11/25 13:56:43 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ size_t	inttochar(va_list arg)
 	int		c;
 	char	*res;
 	int		len;
-
 
 	c = va_arg(arg, int);
 	res = ft_itoa(c);
@@ -37,5 +36,4 @@ size_t	unsignedinttochar(va_list arg)
 	len = write(1, res, ft_strlen((char *)res));
 	free(res);
 	return (len);
-
 }

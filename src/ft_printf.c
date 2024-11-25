@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 00:18:04 by nmetais           #+#    #+#             */
-/*   Updated: 2024/11/24 23:14:09 by nmetais          ###   ########.fr       */
+/*   Updated: 2024/11/25 14:02:11 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,15 @@ int	countformatspecifiers(const char *format)
 	return (0);
 }
 
-int	ft_printf(const char *format, ...)
+size_t	printer(const char *format, va_list arg)
 {
 	size_t	i;
 	size_t	size;
 	size_t	count;
-	va_list	arg;
 
 	i = 0;
 	size = 0;
 	count = 0;
-	va_start(arg, format);
-	if (countformatspecifiers(format) == 1)
-		return (write(1, "NULL", 1));
-	va_end(arg);
-	va_start(arg, format);
 	while (format[i])
 	{
 		if (format[i] == '%')
@@ -59,12 +53,26 @@ int	ft_printf(const char *format, ...)
 			write(1, &format[i], 1);
 			count++;
 		}
-		i++;
+	i++;
 	}
-	va_end(arg);
 	return (count + size);
 }
+
+int	ft_printf(const char *format, ...)
+{
+	size_t	size;
+	va_list	arg;
+
+	size = 0;
+	if (countformatspecifiers(format) == 1)
+		return (write(1, "NULL", 1));
+	va_start(arg, format);
+	size = printer(format, arg);
+	va_end(arg);
+	return (size);
+}
 /*
+#include <stdio.h>
 int main(void)
 { 
 	//char u[] = "test";

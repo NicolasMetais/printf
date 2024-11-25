@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 00:16:48 by nmetais           #+#    #+#             */
-/*   Updated: 2024/11/24 20:04:32 by nmetais          ###   ########.fr       */
+/*   Updated: 2024/11/25 13:56:59 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,3 @@ size_t	percentchecker(const char *format)
 	}
 	return (0);
 }
-
-

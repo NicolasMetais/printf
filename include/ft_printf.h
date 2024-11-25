@@ -6,7 +6,7 @@
 /*   By: nmetais <nmetais@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/19 13:08:17 by nmetais           #+#    #+#             */
-/*   Updated: 2024/11/22 14:06:20 by nmetais          ###   ########.fr       */
+/*   Updated: 2024/11/25 14:02:02 by nmetais          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,22 @@
 
 # include "./../lib/libft/include/libft.h"
 # include <stdarg.h>
-# include <stdio.h>
 # include <stdint.h>
 
-typedef struct s_printf
-{
-	va_list	arg;
-	int		percent;
-	int		len;
-	char	*converted;
-}	t_printf;
-
-int	ft_printf(const char *format, ...);
-int		printer(const char *format, t_printf *config, size_t fullsize);
+int		ft_printf(const char *format, ...);
+size_t	conditionner(const char *format, size_t i, va_list arg);
 size_t	percentchecker(const char *format);
-size_t	multiplechar(t_printf *config);
-size_t	singlechar(t_printf *config);
-size_t	hexadress(t_printf *config);
-size_t	inttochar(t_printf *config);
-size_t	unsignedinttochar(t_printf *config);
+size_t	multiplechar(va_list arg);
+size_t	singlechar(va_list arg);
+size_t	hexadress(va_list arg);
+size_t	inttochar(va_list arg);
+size_t	unsignedinttochar(va_list arg);
 char	*ft_itoa_unsigned(unsigned int n);
-size_t	hexa(t_printf *config, size_t bol);
-size_t	percent(t_printf *config);
-int		writeall(const char *toprint);
+size_t	hexa(va_list arg, size_t bol);
+size_t	percent(void);
+size_t	gethexsize(unsigned long long c);
+void	write_adress(size_t i, char *toprint);
+size_t	converthexadress(unsigned long long c);
+size_t	converthexa(unsigned long long c, size_t bol, size_t sign);
 
 #endif
